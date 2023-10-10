@@ -50,27 +50,30 @@
           <h1 class="title is-1 publication-title">Scored-based Source Separation with Applications to Digital Communication Signals</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://www.linkedin.com/in/tkj97/">Tejas K. Jayashankar</a>,
+              <a href="https://www.linkedin.com/in/tkj97/">Tejas K. Jayashankar</a><sup>1</sup>, 
             </span>
             <span class="author-block">
-              <a href="https://www.linkedin.com/in/garyleecf/">Gary C.F. Lee</a>,
+              <a href="https://www.linkedin.com/in/garyleecf/">&nbspGary C.F. Lee</a><sup>1</sup>, 
             </span>
             <span class="author-block">
-              <a href="https://a-lancho.github.io/">Alejandro Lancho</a>,
+              <a href="https://a-lancho.github.io/">&nbspAlejandro Lancho</a><sup>1, 2</sup>, 
             </span>
             <span class="author-block">
-              <a href="https://www.weissamir.com">Amir Weiss</a>,
+              <a href="https://www.weissamir.com">&nbspAmir Weiss</a><sup>1</sup> 
+            </span>
+            <br />
+            <span class="author-block">
+              <a href="https://people.lids.mit.edu/yp/homepage/">Yury Polyanskiy</a><sup>1</sup>, 
             </span>
             <span class="author-block">
-              <a href="https://people.lids.mit.edu/yp/homepage/">Yury Polyanskiy</a>,
-            </span>
-            <span class="author-block">
-              <a href="http://allegro.mit.edu/~gww/">Gregory W. Wornell</a>
+              <a href="http://allegro.mit.edu/~gww/">&nbspGregory W. Wornell</a><sup>1</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Massachusetts Institute of Technology</span>
+            <span class="author-block"><sup>1</sup>Massachusetts Institute of Technology</span>
+            <span class=""author-block>&nbsp&nbsp&nbsp&nbsp</span>
+            <span class="author-block"><sup>2</sup>Universidad Carlos III de Madrid</span>
           </div>
 
           <div class="column has-text-centered">
@@ -96,7 +99,7 @@
               </span>
               <!-- Video Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                <a href="https://www.youtube.com"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -217,11 +220,11 @@
           <p>
             We propose a new method for separating superimposed sources using diffusion-based generative models.  
             Our method relies only on separately trained statistical priors of independent sources to establish 
-            a new objective function guided by <em>maximum a posteriori</em> estimation with an <em>&alpha-posterior</em>, 
+            a new objective function guided by <em>maximum a posteriori</em> estimation with an <em>&alpha;-posterior</em>, 
             across multiple levels of Gaussian smoothing.  Motivated by applications in radio-frequency (RF) systems, 
             we are interested in sources with underlying discrete nature and the recovery of encoded bits from a signal 
             of interest, as measured by the bit error rate (BER). Experimental results with RF mixtures demonstrate 
-            that our method results in a BER reduction of 95\%  over classical and existing learning-based methods.  
+            that our method results in a BER reduction of 95%  over classical and existing learning-based methods.  
             Our analysis demonstrates that our proposed method yields solutions that asymptotically approach the 
             modes of an underlying discrete distribution. Furthermore, our method can be viewed as a multi-source 
             extension to the recently proposed score distillation sampling scheme, shedding additional light on its 
@@ -232,16 +235,144 @@
     </div>
     <!--/ Abstract. -->
 
+    <br />
+    <br />
+    <br />
+
     <!-- Paper video. -->
-    <!-- <div class="columns is-centered has-text-centered">
+    <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <h2 class="title is-3">Overall Pipeline</h2>
+        <div class="results-image">
+          <img src="./static/images/digital_comm_github.png"
+          class="results-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="content has-text-justified">
+          <br />
+          <p>
+            At a high level, digital communications deals with the transmission 
+            of bits by modulating a so-called "carrier signal".  Groups of bits, 
+            from which the underlying discreteness of these sources originates, 
+            are first mapped to complex-valued symbols via the <em>digital 
+            constellation</em> &mdash; a mapping between groups of bits and a finite 
+            set of complex-valued symbols.  These symbols are subsequently
+            aggregated to form a <em>complex-valued continuous waveform</em> after 
+            filtering by a pulse-shaping function. The constellation is chosen 
+            (among other considerations) by the number of bits modulated simultaneously.  
+            Common schemes include modulating two bits at a time (Quadrature Phase Shift Keying, or QPSK),  
+            or one bit at a time (Binary Phase Shift Keying, or BPSK).  To recover 
+            the bits at the receiver, one may adopt <em>matched filtering</em> (MF) 
+            before the estimation of the underlying symbols, and thereafter decode 
+            them back to bits. 
+          </p>
+          <p>
+            Mitigating co-channel intereference is a challenging problem, especially
+            in heterogeneous wireless systems, i.e., a wireless system with many
+            different communication devices.  In the figure, this is represented
+            as an additive signal b(t) with a scaling factor &kappa; after modulation
+            of the bits onto a carrier wave, which is known as the signal of interest
+            (SOI).  We envision an intelligent decoder that uses our proposed solution
+            to reverse the effects of the interference by leveraging independently
+            trained statistical priors over the SOI and interference signals.
+          </p>
         </div>
       </div>
-    </div> -->
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">&alpha;-Posterior with Randomized Gaussian Smoothing (&alpha;-RGS)</h2>
+        <div class="results-image">
+          <img src="./static/images/algorithm.png"
+          class="results-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <!-- <div class="content has-text-justified">
+          <br />
+          <p>
+            At a high level, digital communications deals with the transmission 
+            of bits by modulating a so-called "carrier signal".  Groups of bits, 
+            from which the underlying discreteness of these sources originates, 
+            are first mapped to complex-valued symbols via the <em>digital 
+            constellation</em> &mdash; a mapping between groups of bits and a finite 
+            set of complex-valued symbols.  These symbols are subsequently
+            aggregated to form a <em>complex-valued continuous waveform</em> after 
+            filtering by a pulse-shaping function. The constellation is chosen 
+            (among other considerations) by the number of bits modulated simultaneously.  
+            Common schemes include modulating two bits at a time (Quadrature Phase Shift Keying, or QPSK),  
+            or one bit at a time (Binary Phase Shift Keying, or BPSK).  To recover 
+            the bits at the receiver, one may adopt <em>matched filtering</em> (MF) 
+            before the estimation of the underlying symbols, and thereafter decode 
+            them back to bits. 
+          </p>
+          <p>
+            Mitigating co-channel intereference is a challenging problem, especially
+            in heterogeneous wireless systems, i.e., a wireless system with many
+            different communication devices.  In the figure, this is represented
+            as an additive signal b(t) with a scaling factor &kappa; after modulation
+            of the bits onto a carrier wave, which is known as the signal of interest
+            (SOI).  We envision an intelligent decoder that uses our proposed solution
+            to reverse the effects of the interference by leveraging independently
+            trained statistical priors over the SOI and interference signals.
+          </p>
+        </div> -->
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="results-image">
+          <img src="./static/images/results.png"
+          class="results-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="content has-text-justified">
+          <br />
+          <p>
+            Each row in the figure above shows source separation results for a
+            different mixture.  Across the board, our proposed method with an 
+            analytical or learned score function for the SOI outperforms all other 
+            baselines (matched filtering (MF), linear minimum mean squared error (LMMSE),
+            reverse diffusion and BASIS separation) in terms of bit error rate 
+            (BER) and mean squared error (MSE).
+          </p>
+          <p>
+            We train diffusion models on different RF datasets &mdash; i) synthetic 
+            QPSK signals with RRC pulse shaping, ii) synthetic OFDM signals 
+            (BPSK and QPSK) with structure similar to IEEE 802.11 WiFi signals; 
+            and iii)  signals corresponding to "CommSignal2" from the 
+            <a href="https://rfchallenge.mit.edu/">RF Challenge</a>, which contains 
+            datasets of over-the-air recorded signals.  All synthetic datasets 
+            were created using the <a href="https://developer.nvidia.com/sionna">
+            NVIDIA Sionna toolkit</a>.
+          </p>
+          <p>
+            As expected, our best results are obtained by leveraging the prior 
+            knowledge, in the form of the analytical score for the SOI.  
+            Nevertheless, our learned SOI score can nearly mimic this performance, 
+            and despite the slight degradation still outperforms all baselines 
+            in terms of BER as well. It should be noted that CommSignal2 contains 
+            small amount of background noise, which is amplified at low SIR 
+            (high &kappa;). This noise constrains the minimal achievable BER 
+            even under the assumption of only having the residual AWGN present, 
+            illustrated by the black dotted line in the bottom left plot. Nevertheless,
+            out proposed method outperforms all baselines.
+          </p>
+        </div>
+      </div>
+    </div>
     <!--/ Paper video. -->
   <!-- </div>
 </section> -->
@@ -412,7 +543,7 @@
           <div class="content">
             <p style="text-align:center">
               This work is part of a larger body of projects that fall under the
-              umbrella of the RFChallenge, a challenge dedicated to developing 
+              umbrella of the RF Challenge, a challenge dedicated to developing 
               intelligent digital communication technology for the next generation 
               of AI-enhanced wireless communication standards.
             </p>
